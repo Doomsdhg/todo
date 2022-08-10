@@ -1,9 +1,10 @@
-import React from 'react';
+import MainPage from './pages/MainPage/MainPage';
+import './App.scss';
 
 function App() {
   return (
     <div className="App">
-      <h1>todo</h1>
+      <MainPage />
     </div>
   );
 }

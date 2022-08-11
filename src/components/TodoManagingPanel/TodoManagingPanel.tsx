@@ -1,4 +1,5 @@
 import { FC, useContext, useState } from 'react';
+import { Constants } from '../../constants/constants';
 import { SelectedTodoContext } from '../../context/SelectedTodoContext';
 import { TodosArrayContext } from '../../context/TodosArrayContext';
 import { Todo } from '../TodoList/TodoList';
@@ -9,30 +10,52 @@ interface TodoManagingPanelProps {}
 const TodoManagingPanel: FC<TodoManagingPanelProps> = () => {
   const {selectedTodo, selectedTodoIndex} = useContext(SelectedTodoContext);
   const [todoName, setTodoName] = useState<string>(selectedTodo.name);
-  const [todoStatus, setTodoStatus] = useState<string>(selectedTodo.status);
+  const [todoStatus, setTodoStatus] = useState<todoStatus>(selectedTodo.status || Constants.TODOS_STATUS.AWAITS);
+  const [displayValidationError, setDisplayValidationError] = useState<boolean>(Constants.GENERAL.FALSE);
   const {todosArray, setTodosArray} = useContext(TodosArrayContext);
-  const noTodoSelected = selectedTodo.name === '' && selectedTodo.status === '';
+  const noTodoSelected: boolean = selectedTodo.status === Constants.TODOS_STATUS.NOT_INITIALIZED;
 
   const saveChanges = () => {
-    const newArray: Todo[] = [...todosArray];
-    newArray[selectedTodoIndex] = new Todo(todoName, todoStatus);
-    setTodosArray([...newArray]);
+    if (todoName === Constants.GENERAL.EMPTY_STRING){
+      setDisplayValidationError(Constants.GENERAL.TRUE)
+    } else {
+      setDisplayValidationError(Constants.GENERAL.FALSE)
+      const newArray: Todo[] = [...todosArray];
+      newArray[selectedTodoIndex] = new Todo(todoName, todoStatus);
+      setTodosArray([...newArray]);
+    }
+  }
+
+  const renderValidationError = () => {
+    return displayValidationError ?
+    <span className="editing-container__validation-error">
+      {Constants.ERRORS.VALIDATION.FORBIDDEN_EMPTY_NAME}
+    </span> :
+    null
   }
 
   return (
     noTodoSelected ?
     <span>no todo selected</span> :
     <div className="todo-managing-panel-container">
-      <div>
+    <span>{noTodoSelected}</span>
+      <div className="editing-container">
         <form>
           <input type="text" defaultValue={selectedTodo.name} onChange={(e) => setTodoName(e.target.value)}>
           </input>
         </form>
+        {renderValidationError()}
         <form>
-          <select onChange={(e) => setTodoStatus(e.target.value)}>
-            <option selected={selectedTodo.status === "awaits"}>awaits</option>
-            <option selected={selectedTodo.status === "in process"}>in process</option>
-            <option selected={selectedTodo.status === "finished"}>finished</option>
+          <select onChange={(e) => {setTodoStatus(e.target.value as todoStatus)}}>
+            <option selected={selectedTodo.status === Constants.TODOS_STATUS.AWAITS}>
+              {Constants.TODOS_STATUS.AWAITS}
+            </option>
+            <option selected={selectedTodo.status === Constants.TODOS_STATUS.IN_PROCESS}>
+              {Constants.TODOS_STATUS.IN_PROCESS}
+            </option>
+            <option selected={selectedTodo.status === Constants.TODOS_STATUS.DONE}>
+              {Constants.TODOS_STATUS.DONE}
+            </option>
           </select>
         </form>
         <button onClick={() => saveChanges()}>save</button>
@@ -40,5 +63,7 @@ const TodoManagingPanel: FC<TodoManagingPanelProps> = () => {
     </div>
   )
 };
+
+export type todoStatus = "awaits" | "in process" | "done" | "";
 
 export default TodoManagingPanel;

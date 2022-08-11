@@ -1,12 +1,13 @@
 import { FC, useContext } from 'react';
 import { SelectedTodoContext } from '../../context/SelectedTodoContext';
 import { Todo } from '../TodoList/TodoList';
+import { todoStatus } from '../TodoManagingPanel/TodoManagingPanel';
 import './TodoItemCard.scss';
 
 export interface TodoItemCardProps extends Todo {
   key: string,
   name: string,
-  status: string,
+  status: todoStatus,
   index: number,
   deleteCallback: (index: number) => void
 }

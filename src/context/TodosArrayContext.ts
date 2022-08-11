@@ -1,5 +1,6 @@
 import React from "react";
 import { Todo } from "../components/TodoList/TodoList";
+import { Constants } from "../constants/constants";
 
 class _todosArrayContext {
     todosArray: Todo[];
@@ -11,4 +12,9 @@ class _todosArrayContext {
     }
 }
 
-export const TodosArrayContext = React.createContext<_todosArrayContext>(new _todosArrayContext([], () => {}));
+export const TodosArrayContext = React.createContext<_todosArrayContext>(
+    new _todosArrayContext(
+        Constants.GENERAL.EMPTY_ARRAY, 
+        Constants.GENERAL.EMPTY_FUNCTION
+    )
+);

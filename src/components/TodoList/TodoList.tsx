@@ -47,19 +47,22 @@ const TodoList: FC = function(){
 
   const renderAddingPanel = () => {
     return displayAddingPanel ? 
-    <div className="todo-list-container__adding-panel">
-      <form>
+    <div className="adding-panel">
+      <form className="adding-panel__form">
         <input type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => todoInputHandler(e)}>
         </input>
+        <button className="adding-panel__adding-button" 
+        onClick={() => handleAddingTodo()}>
+          add
+        </button>
       </form>
-      <button onClick={() => handleAddingTodo()}>add</button>
     </div> :
     null;
   }
 
   const renderValidationError = () => {
     return displayAddingPanel && displayValidationError ?
-    <span className='todo-list-container__validation-error'>
+    <span className='validation-error'>
       {Constants.ERRORS.VALIDATION.FORBIDDEN_EMPTY_NAME}
     </span> :
     null;
@@ -67,9 +70,9 @@ const TodoList: FC = function(){
 
   return (
     <div className="todo-list-container">
-      <div className="todo-list-container__todos-header">
+      <div className="todo-list-header">
         <span>TODO list</span>
-        <button onClick={() => toggleAddingPanel()}>+</button>
+        <button className="todos-header__toggle-adding-panel-button" onClick={() => toggleAddingPanel()}>+</button>
       </div>
       {renderAddingPanel()}
       {renderValidationError()}

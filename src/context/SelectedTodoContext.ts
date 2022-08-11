@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Todo } from "../components/TodoList/TodoList";
+import { Constants } from "../constants/constants";
 
 class _selectedTodoContext {
     selectedTodo: Todo;
@@ -19,5 +20,14 @@ class _selectedTodoContext {
     }
 }
 
-export const SelectedTodoContext = React.createContext<_selectedTodoContext>
-(new _selectedTodoContext({name: '', status: ''}, ()=>{}, 0, ()=>{}));
+export const SelectedTodoContext = React.createContext<_selectedTodoContext>(
+    new _selectedTodoContext(
+    {
+        name: Constants.GENERAL.EMPTY_STRING, 
+        status: Constants.TODOS_STATUS.NOT_INITIALIZED
+    }, 
+    Constants.GENERAL.EMPTY_FUNCTION, 
+    Constants.GENERAL.ZERO, 
+    Constants.GENERAL.EMPTY_FUNCTION
+    )
+);

@@ -10,8 +10,12 @@
     scrollbar-color: #6969dd #e0e0e0;
     scrollbar-width: thin;
 
-    .todos-adding-panel{
+    .todo-list-container__adding-panel{
         display: inline-block;
         width: 100%;
+    }
+
+    .todo-list-container__validation-error{
+        color: red;
     }
 }

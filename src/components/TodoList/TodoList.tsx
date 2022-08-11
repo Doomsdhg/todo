@@ -1,15 +1,12 @@
-import { ChangeEvent, FC, ReactElement, useState } from 'react';
-import { useLocalStorage } from '../../hooks/localStorageHooks';
+import { ChangeEvent, FC, ReactElement, useContext, useState } from 'react';
+import { TodosArrayContext } from '../../context/TodosArrayContext';
 import TodoItemCard, { TodoItemCardProps } from '../TodoItemCard/TodoItemCard';
 import './TodoList.scss';
 
 const TodoList: FC = function(){
-
-  const [todosArray, setTodosArray] = useLocalStorage<Todo[]>('todos', []);
-
   const [displayAddingPanel, setDisplayAddingPanel] = useState<boolean>(false);
-
   const [todoNameInput, setTodoNameInput] = useState<string>('');
+  const { todosArray, setTodosArray } = useContext(TodosArrayContext);
 
   const renderTodosCards = function(): ReactElement<TodoItemCardProps>[] {
     return todosArray.map((item, index) => {

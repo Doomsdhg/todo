@@ -1,6 +1,6 @@
-import React, { FC, useContext, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { SelectedTodoContext } from '../../context/SelectedTodoContext';
-import { useLocalStorage } from '../../hooks/localStorageHooks';
+import { TodosArrayContext } from '../../context/TodosArrayContext';
 import { Todo } from '../TodoList/TodoList';
 import './TodoManagingPanel.scss';
 
@@ -8,9 +8,9 @@ interface TodoManagingPanelProps {}
 
 const TodoManagingPanel: FC<TodoManagingPanelProps> = () => {
   const {selectedTodo, selectedTodoIndex} = useContext(SelectedTodoContext);
-  const [todosArray, setTodosArray] = useLocalStorage<Todo[]>('todos', []);
   const [todoName, setTodoName] = useState<string>(selectedTodo.name);
   const [todoStatus, setTodoStatus] = useState<string>(selectedTodo.status);
+  const {todosArray, setTodosArray} = useContext(TodosArrayContext);
   const noTodoSelected = selectedTodo.name === '' && selectedTodo.status === '';
 
   const saveChanges = () => {

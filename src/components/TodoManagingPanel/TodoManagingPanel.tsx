@@ -79,6 +79,6 @@ const TodoManagingPanel: FC<TodoManagingPanelProps> = () => {
   )
 };
 
-export type todoStatus = "awaits" | "in process" | "done" | "";
+export type todoStatus = "awaits" | "in-process" | "done" | "";
 
 export default TodoManagingPanel;

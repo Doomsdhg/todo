@@ -45,6 +45,21 @@ const TodoList: FC = function(){
     setTodosArray(newTodosArray);
   }
 
+  const mouseDragHandler = (e: MouseEvent) => {
+    const resizableElement = document.getElementById('todo-list-container');
+    resizableElement!.style['width'] = `${e.screenX}px`;
+  }
+
+  const startDragHandler = (e: React.MouseEvent) => {
+    console.log(e);
+    document.addEventListener('mouseup', finishDragHandler)
+    document.addEventListener('mousemove', mouseDragHandler);
+  }
+
+  const finishDragHandler = () => {
+    document.removeEventListener('mousemove', mouseDragHandler);
+  }
+
   const renderAddingPanel = () => {
     return displayAddingPanel ? 
     <div className="adding-panel">
@@ -69,14 +84,19 @@ const TodoList: FC = function(){
   }
 
   return (
-    <div className="todo-list-container">
-      <div className="todo-list-header">
-        <h1>TODO list</h1>
-        <button className="todos-header__toggle-adding-panel-button" onClick={() => toggleAddingPanel()}>+</button>
+    <div className="todo-list-container" id="todo-list-container">
+      <div className="todo-list">
+        <div className="todos-header">
+          <h1>TODO list</h1>
+          <button className="todos-header__toggle-adding-panel-button" onClick={() => toggleAddingPanel()}>+</button>
+        </div>
+        {renderAddingPanel()}
+        {renderValidationError()}
+        {renderTodosCards()}
       </div>
-      {renderAddingPanel()}
-      {renderValidationError()}
-      {renderTodosCards()}
+      <div className="resizing-drag"
+      onMouseDown={(e) => startDragHandler(e)}
+      ></div>
     </div>
   )
 };

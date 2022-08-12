@@ -12,11 +12,15 @@
         font-size: 16px;
         border-radius: 0.25rem;
         border: 1px solid rgb(163, 163, 163);
+        box-sizing: border-box;
+        box-shadow: 0 0 5px grey;;
     }
 
     input {
+        box-sizing: border-box;
+        box-shadow: 0 0 5px grey;;
         display: block;
-        height: 2rem;
+        height: 3rem;
         padding: 0.375rem 0.75rem;
         font-family: inherit;
         font-size: 1rem;
@@ -30,6 +34,8 @@
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
     select {
+        box-sizing: border-box;
+        box-shadow: 0 0 5px grey;;
         display: block;
         height: 3rem;
         padding: 0.375rem 0.75rem;

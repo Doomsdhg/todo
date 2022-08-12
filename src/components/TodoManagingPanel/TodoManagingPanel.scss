@@ -1,11 +1,45 @@
 .todo-managing-panel-container {
     display: inline-block;
-    width: 80%;
+    padding: 1rem;
+    width: 70%;
     flex: 4 1 4;
 
+    .managing-panel-title {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
     .editing-container {
+        .editing-name-form {
+            margin-top: 1rem;
+            .editing-name-form__title {
+
+            }
+            .editing-name-form__input {
+                margin-top: 1rem;
+                width: calc(100% - 2rem);
+            }
+        }
+        .editing-status-form {
+            margin-top: 1rem;
+            .editing-status-form__title {
+                margin-top: 1rem;
+            }
+            .editing-status-form__select {
+                margin-top: 1rem;
+            }
+        }
         .editing-container__validation-error {
             color: red;
+            margin-top: 1rem;
+        }
+        .editing-container__save-changes-button{
+            background-color: rgb(21, 113, 21);
+            margin-top: 1rem;
         }
     }
+    .no-todo-selected {
+        margin: 2rem;
+    }
 }
+

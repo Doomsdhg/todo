@@ -5,6 +5,14 @@ import TodoItemCard, { TodoItemCardProps } from '../TodoItemCard/TodoItemCard';
 import { todoStatus } from '../TodoManagingPanel/TodoManagingPanel';
 import './TodoList.scss';
 
+class TodoListConstants {
+  public static TODO_LIST_ID = "todo-list-container";
+
+  public static buildWidthProperty = (width: number): string => {
+    return `${width}px`;
+  }
+}
+
 const TodoList: FC = function(){
   const [displayAddingPanel, setDisplayAddingPanel] = useState<boolean>(Constants.GENERAL.FALSE);
   const [todoNameInput, setTodoNameInput] = useState<string>(Constants.GENERAL.EMPTY_STRING);
@@ -54,11 +62,11 @@ const TodoList: FC = function(){
   }
 
   const mouseDragHandler = (e: MouseEvent) => {
-    const resizableElement = document.getElementById('todo-list-container');
-    resizableElement!.style['width'] = `${e.screenX}px`;
+    const resizableElement = document.getElementById(TodoListConstants.TODO_LIST_ID);
+    resizableElement!.style['width'] = TodoListConstants.buildWidthProperty(e.screenX);
   }
 
-  const startDragHandler = (e: React.MouseEvent) => {
+  const startDragHandler = () => {
     document.addEventListener('mouseup', finishDragHandler)
     document.addEventListener('mousemove', mouseDragHandler);
   }
@@ -96,7 +104,7 @@ const TodoList: FC = function(){
   }
 
   return (
-    <div className="todo-list-container" id="todo-list-container">
+    <div className="todo-list-container" id={TodoListConstants.TODO_LIST_ID}>
       <div className="todo-list">
         <div className="todos-header">
           <h1>TODO list</h1>
@@ -114,7 +122,7 @@ const TodoList: FC = function(){
         {renderTodosCards()}
       </div>
       <div className="resizing-drag"
-      onMouseDown={(e) => startDragHandler(e)}
+      onMouseDown={() => startDragHandler()}
       ></div>
     </div>
   )

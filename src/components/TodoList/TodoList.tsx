@@ -71,7 +71,7 @@ const TodoList: FC = function(){
   return (
     <div className="todo-list-container">
       <div className="todo-list-header">
-        <span>TODO list</span>
+        <h1>TODO list</h1>
         <button className="todos-header__toggle-adding-panel-button" onClick={() => toggleAddingPanel()}>+</button>
       </div>
       {renderAddingPanel()}

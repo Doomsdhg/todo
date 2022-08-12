@@ -10,6 +10,7 @@
     overflow-x: hidden;
     scrollbar-color: #6969dd #e0e0e0;
     scrollbar-width: thin;
+    background-color: white;
 
     .todo-list-header{
         padding: 1rem;
@@ -17,13 +18,15 @@
         justify-content: space-between;
         .todos-header__toggle-adding-panel-button{
             background-color: rgb(27, 0, 146);
+            height: 50%;
+            margin: auto 0;
         }
     }
 
     .adding-panel{
-        display: flex;
         width: 100%;
         padding: 1rem;
+        margin-bottom: 2rem;
 
         .adding-panel__form {
             display: flex;

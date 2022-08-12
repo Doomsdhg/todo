@@ -9,10 +9,12 @@ const TodoList: FC = function(){
   const [displayAddingPanel, setDisplayAddingPanel] = useState<boolean>(Constants.GENERAL.FALSE);
   const [todoNameInput, setTodoNameInput] = useState<string>(Constants.GENERAL.EMPTY_STRING);
   const [displayValidationError,  setDisplayValidationError] = useState<boolean>(Constants.GENERAL.FALSE);
+  const [searchQuery, setSearchQuery] = useState<string>(Constants.GENERAL.EMPTY_STRING);
   const {todosArray, setTodosArray} = useContext(TodosArrayContext);
 
   const renderTodosCards = function(): ReactElement<TodoItemCardProps>[] {
-    return todosArray.map((item, index) => {
+    return filterTodos()
+    .map((item, index) => {
       return <TodoItemCard 
       key={item.name + String(index)}
       name={item.name}
@@ -45,13 +47,18 @@ const TodoList: FC = function(){
     setTodosArray(newTodosArray);
   }
 
+  const filterTodos = () => {
+    return todosArray.filter((todo: Todo) => {
+      return todo.name.includes(searchQuery);
+    });
+  }
+
   const mouseDragHandler = (e: MouseEvent) => {
     const resizableElement = document.getElementById('todo-list-container');
     resizableElement!.style['width'] = `${e.screenX}px`;
   }
 
   const startDragHandler = (e: React.MouseEvent) => {
-    console.log(e);
     document.addEventListener('mouseup', finishDragHandler)
     document.addEventListener('mousemove', mouseDragHandler);
   }
@@ -60,11 +67,16 @@ const TodoList: FC = function(){
     document.removeEventListener('mousemove', mouseDragHandler);
   }
 
+  const searchbarChangeHandler = (query: string) => {
+    setSearchQuery(query);
+  }
+
   const renderAddingPanel = () => {
     return displayAddingPanel ? 
     <div className="adding-panel">
       <form className="adding-panel__form">
-        <input type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => todoInputHandler(e)}>
+        <input type="text" placeholder="todo name" 
+        onChange={(e: ChangeEvent<HTMLInputElement>) => todoInputHandler(e)}>
         </input>
         <button className="adding-panel__adding-button" 
         onClick={() => handleAddingTodo()}>
@@ -89,6 +101,13 @@ const TodoList: FC = function(){
         <div className="todos-header">
           <h1>TODO list</h1>
           <button className="todos-header__toggle-adding-panel-button" onClick={() => toggleAddingPanel()}>+</button>
+        </div>
+        <div className="search-bar-container">
+          <form className="search-bar__form">
+            <input type="text" placeholder="search..." 
+            onChange={(e: ChangeEvent<HTMLInputElement>) => searchbarChangeHandler(e.target.value)}>
+            </input>
+          </form>
         </div>
         {renderAddingPanel()}
         {renderValidationError()}

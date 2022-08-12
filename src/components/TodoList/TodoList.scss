@@ -16,7 +16,15 @@
         scrollbar-color: #6969dd #e0e0e0;
         scrollbar-width: thin;
         background-color: white;
-    
+        
+        .search-bar-container {
+            margin: 1rem;
+            width: calc(100% - 2rem);
+
+            input {
+                width: 100%;
+            }
+        }
         .todos-header{
             padding: 1rem;
             display: flex;
@@ -30,13 +38,13 @@
     
         .adding-panel{
             width: 100%;
-            padding: 1rem;
             margin-bottom: 2rem;
     
             .adding-panel__form {
                 display: flex;
                 input {
-                    width: calc(100% - 1.6rem - 2rem - 4rem)
+                    margin-left: 1rem;
+                    width: calc(100% - 2rem - 4rem)
                 }
             }
             .adding-panel__adding-button {

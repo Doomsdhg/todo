@@ -21,7 +21,7 @@ export const TodoItemCard: FC<TodoItemCardProps> = (props: TodoItemCardProps) =>
   }
 
   return (
-  <div className="todo-item-card-wrapper" onClick={() => selectThisTodo()}>
+  <div className={`todo-item-card-wrapper ${props.status}`} onClick={() => selectThisTodo()}>
     <div className="todo-item-card-wrapper__name">{props.name}</div>
     <button className="todo-item-card-wrapper__delete-button" 
     onClick={() => props.deleteCallback(props.index)}>

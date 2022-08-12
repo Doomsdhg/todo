@@ -3,7 +3,7 @@ import { todoStatus } from "../components/TodoManagingPanel/TodoManagingPanel";
 
 class TodoStatus {
     public static AWAITS: todoStatus = "awaits";
-    public static IN_PROCESS: todoStatus = "in process";
+    public static IN_PROCESS: todoStatus = "in-process";
     public static DONE: todoStatus = "done";
     public static NOT_INITIALIZED: todoStatus = "";
 }
